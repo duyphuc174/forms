@@ -1,0 +1,49 @@
+
+    <form action="" class="form" [formGroup] = "f">
+        <div *ngIf="form.username">
+            <label for="">{{form.username | uppercase}}</label>      
+            <input type="email" formControlName = "username" placeholder="Example: abc@gmail.com">
+            
+            <div *ngIf="checkValueError('username')">
+                <div *ngIf="validate('username','required')">
+                    <p>Bạn chưa nhập {{form.username}}</p>
+                </div>
+                <div *ngIf="validate('username','email') && username?.touched">
+                    <p>{{form.username}} không phải email</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div *ngIf="form.password">
+            <label for="">{{form.password | uppercase}}</label>
+            <input type="password" formControlName = "password" placeholder="Nhập mật khẩu (Từ 3 -> 100 ký tự)">
+
+            <div *ngIf="checkValueError('password')">
+                <div *ngIf="validate('password','required')">
+                    <p>Bạn chưa nhập mật khẩu</p>
+                </div>
+                <div *ngIf="validate('password','minlength') && password?.touched">
+                    <p>Độ dài tối thiểu là {{password?.errors?.['minlength']?.requiredLength}} ký tự</p>
+                </div>
+                <div *ngIf="validate('password','maxlength') && password?.touched">
+                    <p>Độ dài tối đa là {{password?.errors?.['maxlength']?.requiredLength}} ký tự</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div *ngIf="form.confirmPassword">
+            <label for="">{{form.confirmPassword | uppercase}}</label>
+            <input type="password" formControlName = "confirmPassword" placeholder="Nhập lại mật khẩu">
+
+            <div *ngIf="checkValueError('confirmPassword')">
+                <div *ngIf="validate('confirmPassword','required')">
+                    <p>Bạn chưa nhập lại mật khẩu</p>
+                </div>
+            </div>
+        </div>
+
+        <button type="button">{{form.submit | uppercase}}</button>
+    </form>
+
