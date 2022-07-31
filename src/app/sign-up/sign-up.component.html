@@ -40,10 +40,21 @@
                     <p>Bạn chưa nhập lại mật khẩu</p>
                 </div>
             </div>
+            <div *ngIf="!confirmSuccess">
+                <p>Nhập lại mật khẩu chưa chính xác</p>
+            </div>
         </div>
 
         <div *ngIf="form.submit">
-            <button type="button">{{form.submit | uppercase}}</button>
+            <button (click)="submit()" [disabled]="!submitTable" [class.un-active] = "!submitTable" type="button">{{form.submit | uppercase}}</button>
+        </div>
+
+        <div *ngIf="submitted">
+            <div class="center" *ngIf="!successSubmit">
+                <p>Tài khoản đã tồn tại</p>
+            </div>
+            <div class="center" *ngIf="successSubmit">
+                <p class="susccess">Đăng ký thành công</p>
+            </div>
         </div>
     </form>
-    <p>{{f.value | json}}</p>

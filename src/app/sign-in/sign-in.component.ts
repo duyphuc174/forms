@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { FormService } from '../form.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -15,8 +16,9 @@ export class SignInComponent implements OnInit {
   }
 
   submitTable = false
+  submitted = false
 
-  successSubmit = false
+  successSubmit!: boolean
 
   f = this.fb.group({
     username: ['', [Validators.required, Validators.email]],
@@ -25,9 +27,12 @@ export class SignInComponent implements OnInit {
 
   submit() {
     if(this.submitTable) {
-      this.successSubmit = true
-    } else {
-      this.successSubmit = false
+      this.submitted = true
+     if(this.formService.getUsers().find(user => user.username === this.username?.value)){
+      if(this.formService.getUsers().find(user => user.password === this.password?.value)) {
+        this.successSubmit = true
+      }
+     }
     }
   }
 
@@ -39,14 +44,14 @@ export class SignInComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,public formService: FormService) { }
 
   ngOnInit(): void {
     
   }
   
   ngDoCheck(): void {
-    this.canSubmit()
+    this.canSubmit()    
   }
 
   checkValueError(value: string) {

@@ -32,8 +32,13 @@
     
     <div *ngIf="form.submit">
         <button (click)="submit()" [disabled]="!submitTable" [class.un-active] = "!submitTable" type="button">{{form.submit | uppercase}}</button>
-        <div *ngIf="successSubmit">
-            <p>Đăng nhập thành công</p>
+        <div *ngIf="submitted">
+            <div class="center" *ngIf="successSubmit">
+                <p class="susccess">Đăng nhập thành công</p>
+            </div>
+            <div class="center" *ngIf="!successSubmit">
+                <p>Tài khoản hoặc mật khẩu không chính xác!</p>
+            </div>
         </div>
     </div>
 </form>
