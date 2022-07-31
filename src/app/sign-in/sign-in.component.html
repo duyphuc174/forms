@@ -1,0 +1,39 @@
+<form action="" class="form" [formGroup] = "f">
+    <div *ngIf="form.username">
+        <label for="">{{form.username | uppercase}}</label>      
+        <input type="email" formControlName = "username" placeholder="Example: abc@gmail.com">
+        
+        <div *ngIf="checkValueError('username')">
+            <div *ngIf="validate('username','required')">
+                <p>Bạn chưa nhập {{form.username}}</p>
+            </div>
+            <div *ngIf="validate('username','email') && username?.touched">
+                <p>{{form.username}} không phải email</p>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="form.password">
+        <label for="">{{form.password | uppercase}}</label>
+        <input type="password" formControlName = "password" placeholder="Từ 3 đến 100 ký tự">
+
+        <div *ngIf="checkValueError('password')">
+            <div *ngIf="validate('password','required')">
+                <p>Bạn chưa nhập mật khẩu</p>
+            </div>
+            <div *ngIf="validate('password','minlength') && password?.touched">
+                <p>Độ dài tối thiểu là {{password?.errors?.['minlength']?.requiredLength}} ký tự</p>
+            </div>
+            <div *ngIf="validate('password','maxlength') && password?.touched">
+                <p>Độ dài tối đa là {{password?.errors?.['maxlength']?.requiredLength}} ký tự</p>
+            </div>
+        </div>
+    </div>
+    
+    <div *ngIf="form.submit">
+        <button (click)="submit()" [disabled]="!submitTable" [class.un-active] = "!submitTable" type="button">{{form.submit | uppercase}}</button>
+        <div *ngIf="successSubmit">
+            <p>Đăng nhập thành công</p>
+        </div>
+    </div>
+</form>

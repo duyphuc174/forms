@@ -12,12 +12,11 @@
                     <p>{{form.username}} không phải email</p>
                 </div>
             </div>
-
         </div>
 
         <div *ngIf="form.password">
             <label for="">{{form.password | uppercase}}</label>
-            <input type="password" formControlName = "password" placeholder="Nhập mật khẩu (Từ 3 -> 100 ký tự)">
+            <input type="password" formControlName = "password" placeholder="Từ 3 đến 100 ký tự">
 
             <div *ngIf="checkValueError('password')">
                 <div *ngIf="validate('password','required')">
@@ -30,7 +29,6 @@
                     <p>Độ dài tối đa là {{password?.errors?.['maxlength']?.requiredLength}} ký tự</p>
                 </div>
             </div>
-
         </div>
 
         <div *ngIf="form.confirmPassword">
@@ -44,6 +42,8 @@
             </div>
         </div>
 
-        <button type="button">{{form.submit | uppercase}}</button>
+        <div *ngIf="form.submit">
+            <button type="button">{{form.submit | uppercase}}</button>
+        </div>
     </form>
-
+    <p>{{f.value | json}}</p>

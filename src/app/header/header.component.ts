@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 export interface Button {
   name: string
@@ -26,6 +27,7 @@ export class HeaderComponent implements OnInit {
     if(!this.signIn.selected) {
       this.signIn.selected = true
       this.signUp.selected = false
+      this.router.navigateByUrl('/sign-in')
     }
   }
 
@@ -33,10 +35,12 @@ export class HeaderComponent implements OnInit {
     if(!this.signUp.selected) {
       this.signUp.selected = true
       this.signIn.selected = false
+      this.router.navigateByUrl('/sign-up')
+
     }
   }
 
-  constructor() { }
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
 

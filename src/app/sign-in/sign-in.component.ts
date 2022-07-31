@@ -1,32 +1,52 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { FormType } from './form';
 
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css']
+  selector: 'app-sign-in',
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.css']
 })
-export class FormComponent implements OnInit {
-  
-  form: FormType = {
-    username: 'Username',
-    password: 'Password',
-    confirmPassword: 'Comfirm Password',
-    submit: 'Submit'
+export class SignInComponent implements OnInit {
+
+  form = {
+    username: "Tên đăng nhập",
+    password: "Mật khẩu",
+    submit: 'Đăng nhập'
   }
+
+  submitTable = false
+
+  successSubmit = false
 
   f = this.fb.group({
     username: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-    confirmPassword: ['',[Validators.required]],
   })
 
+  submit() {
+    if(this.submitTable) {
+      this.successSubmit = true
+    } else {
+      this.successSubmit = false
+    }
+  }
 
+  canSubmit() {
+    if (!(this.password?.errors || this.username?.errors)) {
+      this.submitTable = true
+    } else {
+      this.submitTable = false
+    }
+  }
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    
+  }
+  
+  ngDoCheck(): void {
+    this.canSubmit()
   }
 
   checkValueError(value: string) {
@@ -43,10 +63,6 @@ export class FormComponent implements OnInit {
 
   get password() {
     return this.f.get('password')
-  }
-
-  get confirmPassword() {
-    return this.f.get('confirmPassword')
   }
 
 }
